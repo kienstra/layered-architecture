@@ -93,7 +93,7 @@ A Gateway is easy to stub in tests, like with `src/Common/FakeHttpGateway.js`.
 But it's almost as easy to stub `fetch()` in each test file, without a Gateway:
 
 ```js
-const fetchSpy = jest.fn()
+const fetchSpy = vi.fn()
 global.fetch = fetchSpy
 
 beforeEach(() => {
