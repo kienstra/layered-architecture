@@ -1,9 +1,9 @@
 {
-  "name": "presenter-architecture-demo",
+  "name": "layered-architecture-demo",
   "version": "0.1.0",
-  "description": "Demo of using a presenter architecture",
+  "description": "Demo of using a layered architecture",
   "keywords": [
-    "presenter",
+    "layered",
     "demo"
   ],
   "type": "module",
