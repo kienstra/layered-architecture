@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-import React from 'react'
+import React, { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import { configure } from 'mobx'
 import { InjectionProvider } from './Common/Providers/Injection'
@@ -15,9 +15,9 @@ configure({
 })
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  <StrictMode>
     <InjectionProvider container={container}>
       <App />
     </InjectionProvider>
-  </React.StrictMode>
+  </StrictMode>
 )

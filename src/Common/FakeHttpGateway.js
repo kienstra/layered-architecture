@@ -1,6 +1,7 @@
 import { decorate, injectable } from 'inversify'
 
 /** Stub class for tests. */
+@injectable()
 class FakeHttpGateway {
   get = async () => {}
 
@@ -9,5 +10,4 @@ class FakeHttpGateway {
   delete = async () => {}
 }
 
-decorate(injectable(), FakeHttpGateway)
 export default FakeHttpGateway
