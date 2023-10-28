@@ -22,8 +22,7 @@ describe('Checkbox App', () => {
 
   it('makes an external request when checked', async () => {
     const { checkboxPresenter, httpGateway } = getRoot();
-    httpGateway.post = vi.fn();
-    httpGateway.post.mockImplementation(() => {
+    httpGateway.post = vi.fn().mockImplementation(() => {
       return Promise.resolve({})
     });
 
