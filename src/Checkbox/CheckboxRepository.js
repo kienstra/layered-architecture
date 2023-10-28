@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 
-class CheckboxRepository {
+export default class CheckboxRepository {
   isChecked = false
 
   constructor(httpGateway) {
@@ -15,5 +15,3 @@ class CheckboxRepository {
     })
   }
 }
-
-export default CheckboxRepository
