@@ -1,10 +1,9 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import { useInjection } from '../Common/Providers/Injection'
-import CheckboxPresenter from './CheckboxPresenter'
 
 export default observer(() => {
-  const { checkboxPresenter } = useInjection({ checkboxPresenter: CheckboxPresenter })
+  const { checkboxPresenter } = useInjection();
 
   return (
     <>

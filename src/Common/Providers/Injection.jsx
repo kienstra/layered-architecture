@@ -6,21 +6,11 @@ function toLowerCase(name) {
   return name.charAt(0).toLowerCase() + name.slice(1)
 }
 
-export function useInjection(identifiers) {
+export function useInjection() {
   const { root } = useContext(RootContext)
-  if (!root) {
-    throw new Error('useInjection() called outside of <InjectionProvider>')
-  }
+  if (!root) throw new Error('useInjection() called outside of <InjectionProvider>')
 
-  return Object.entries(identifiers).reduce(
-    (accumulator, [identifier, ]) => {
-      return {
-        ...accumulator,
-        [identifier]: root[identifier]
-      }
-    },
-    {}
-  )
+  return root;
 }
 
 export const InjectionProvider = (props) => {
