@@ -1,25 +1,18 @@
 import React, { useContext } from 'react'
 
-const InversifyContext = React.createContext({ container: null })
+const RootContext = React.createContext({ container: null })
 
 function toLowerCase(name) {
   return name.charAt(0).toLowerCase() + name.slice(1)
 }
 
-export function useInjection(...identifiers) {
-  const { container } = useContext(InversifyContext)
-  if (!container) {
-    throw new Error()
-  }
+export function useInjection() {
+  const { root } = useContext(RootContext)
+  if (!root) throw new Error('useInjection() called outside of <InjectionProvider>')
 
-  return identifiers.reduce((accumulator, identifier) => {
-    return {
-      ...accumulator,
-      [toLowerCase(identifier.name)]: container.get(identifier)
-    }
-  }, {})
+  return root;
 }
 
 export const InjectionProvider = (props) => {
-  return <InversifyContext.Provider value={{ container: props.container }}>{props.children}</InversifyContext.Provider>
+  return <RootContext.Provider value={{ root: props.root }}>{props.children}</RootContext.Provider>
 }

@@ -1,17 +1,10 @@
-import { inject, injectable } from 'inversify'
 import { makeAutoObservable } from 'mobx'
-import Types from '../Common/Types'
 
-@injectable()
-class CheckboxRepository {
-  // Dependency injection: inject HttpGateway as the property httpGateway.
-  // Allows injecting FakeHttpGateway to stub tests.
-  @inject(Types.IDataGateway)
-  httpGateway
-
+export default class CheckboxRepository {
   isChecked = false
 
-  constructor() {
+  constructor(httpGateway) {
+    this.httpGateway = httpGateway;
     makeAutoObservable(this)
   }
 
@@ -22,5 +15,3 @@ class CheckboxRepository {
     })
   }
 }
-
-export default CheckboxRepository

@@ -1,11 +1,9 @@
 import React from 'react'
 import { observer } from 'mobx-react'
 import { useInjection } from '../Common/Providers/Injection'
-import CheckboxPresenter from './CheckboxPresenter'
 
-/** observer() forces this React component to rerender when certain MobX observables change in CheckboxPresenter */
 export default observer(() => {
-  const { checkboxPresenter } = useInjection(CheckboxPresenter)
+  const { checkboxPresenter } = useInjection();
 
   return (
     <>

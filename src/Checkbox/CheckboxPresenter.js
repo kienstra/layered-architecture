@@ -1,16 +1,10 @@
-import { inject, injectable } from 'inversify'
 import { makeAutoObservable } from 'mobx'
-import CheckboxRepository from './CheckboxRepository'
 
-@injectable()
-class CheckboxPresenter {
-
-  @inject(CheckboxRepository)
-  checkboxRepository
-
+export default class CheckboxPresenter {
   viewModel = null
 
-  constructor() {
+  constructor(checkboxRepository) {
+    this.checkboxRepository = checkboxRepository;
     makeAutoObservable(this)
   }
 
@@ -22,5 +16,3 @@ class CheckboxPresenter {
     this.checkboxRepository.setIsChecked(!!newIsChecked)
   }
 }
-
-export default CheckboxPresenter
