@@ -1,8 +1,4 @@
-import { injectable } from 'inversify'
-
-// Allow injecting HttpGateway into other classes via dependency injection.
-@injectable()
-class HttpGateway {
+export default class HttpGateway {
   apiUrl = 'https://example.com'
 
   async post(path, requestDto) {
@@ -17,5 +13,3 @@ class HttpGateway {
     return response?.json()
   }
 }
-
-export default HttpGateway

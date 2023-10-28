@@ -1,28 +1,15 @@
-import { AppTestHarness } from './TestTools/AppTestHarness'
-import { beforeEach, describe, expect, spy, it, vi } from 'vitest';
-
-let appTestHarness = null
-let dataGateway = null
-let checkboxPresenter = null
+import { getRoot } from './TestTools/TestCompositionRoot'
+import { describe, expect, it, vi } from 'vitest';
 
 describe('Checkbox App', () => {
-  beforeEach(async () => {
-    appTestHarness = new AppTestHarness()
-    appTestHarness.init()
-    dataGateway = appTestHarness.dataGateway
-    checkboxPresenter = appTestHarness.checkboxPresenter
-
-    dataGateway.post = vi.fn();
-    dataGateway.post.mockImplementation(() => {
-      return Promise.resolve({})
-    })
-  })
-
   it('is initially unchecked', async () => {
+    const { checkboxPresenter } = getRoot();
     expect(checkboxPresenter.isChecked).toBe(false)
   })
 
   it('chages from checked to unchecked and back', async () => {
+    const { checkboxPresenter } = getRoot();
+
     checkboxPresenter.setIsChecked(true)
     expect(checkboxPresenter.isChecked).toBe(true)
 
@@ -34,8 +21,14 @@ describe('Checkbox App', () => {
   })
 
   it('makes an external request when checked', async () => {
+    const { checkboxPresenter, httpGateway } = getRoot();
+    httpGateway.post = vi.fn();
+    httpGateway.post.mockImplementation(() => {
+      return Promise.resolve({})
+    });
+
     checkboxPresenter.setIsChecked(true)
-    expect(dataGateway.post).toHaveBeenCalledWith('is-checked', {
+    expect(httpGateway.post).toHaveBeenCalledWith('is-checked', {
       checked: true
     })
   })

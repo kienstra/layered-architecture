@@ -9,12 +9,10 @@
   "type": "module",
   "main": "src/index.js",
   "dependencies": {
-    "inversify": "^6.0.1",
     "mobx": "^6.9.0",
     "mobx-react": "7.6.0",
     "react": "18.0.0",
-    "react-dom": "18.0.0",
-    "reflect-metadata": "0.1.13"
+    "react-dom": "18.0.0"
   },
   "scripts": {
     "dev": "vite",
