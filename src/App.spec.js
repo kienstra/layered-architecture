@@ -1,15 +1,18 @@
-import { initialState } from './Store/initial';
+import initialState from './Store/initialState';
 import { makeReducers } from './Store/reducer';
 import { describe, expect, it, vi } from 'vitest';
 import StubHttpGateway from './Checkbox/StubHttpGateway';
-import { checkedAndUnchecked } from './Store/selector';
+import { checkedAndUnchecked, neverChecked } from './Store/selector';
+import HttpGateway from './Checkbox/HttpGateway';
 
 describe('Checkbox App', () => {
   it('is initially unchecked', async () => {
     expect(
-      {isChecked: false},
-      makeReducers(new StubHttpGateway())(initialState, {})
-    );
+      makeReducers(new StubHttpGateway())(
+        initialState,
+        {}
+      ).isChecked
+    ).toEqual( false );
   });
 
   it('makes an external request when checked', () => {
@@ -19,9 +22,12 @@ describe('Checkbox App', () => {
     });
 
     expect(
-      {isChecked: true},
-      makeReducers(httpGateway)(initialState, {type: 'SET_IS_CHECKED', payload: true})
-    );
+      makeReducers(httpGateway)(
+        initialState,
+        {type: 'SET_IS_CHECKED', payload: true}
+      ).isChecked
+    ).toEqual(true);
+
     expect(httpGateway.post).toHaveBeenCalledWith('is-checked', {
       checked: true,
     });
@@ -34,9 +40,12 @@ describe('Checkbox App', () => {
     });
 
     expect(
-      {isChecked: true},
-      makeReducers(httpGateway)(initialState, {type: 'SET_IS_CHECKED', payload: false})
-    );
+      makeReducers(httpGateway)(
+        initialState,
+        {type: 'SET_IS_CHECKED', payload: false}
+      ).isChecked
+    ).toEqual(false);
+
     expect(httpGateway.post).not.toHaveBeenCalledWith('is-checked', {
       checked: false,
     });
@@ -47,6 +56,20 @@ describe('Checkbox App', () => {
       checkedAndUnchecked(
         makeReducers(new StubHttpGateway())(initialState, {type: 'SET_IS_CHECKED', payload: false})
       )
-    );
+    ).toEqual(true);
+  })
+
+  it('derived state: was never checked', () => {
+    expect(
+      neverChecked(
+        initialState
+      )
+    ).toEqual(true);
+
+    expect(
+      neverChecked(
+        makeReducers(new HttpGateway())(initialState, {type: 'SET_IS_CHECKED', payload: true})
+      )
+    ).toEqual(false);
   })
 })

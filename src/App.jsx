@@ -1,7 +1,7 @@
 import './styles.css'
 import React, { createContext, useReducer } from 'react'
 import { reducer } from './Store/reducer'
-import initialState from './Store/initial'
+import initialState from './Store/initialState'
 import CheckboxComponent from './Checkbox/CheckboxComponent'
 
 export const AppContext = createContext();
