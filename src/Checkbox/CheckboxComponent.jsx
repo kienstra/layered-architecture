@@ -1,9 +1,8 @@
-import React from 'react'
-import { observer } from 'mobx-react'
-import { useInjection } from '../Common/Providers/Injection'
+import React, { useContext } from 'react'
+import { AppContext } from '../App';
 
-export default observer(() => {
-  const { checkboxPresenter } = useInjection();
+export default function CheckboxComponent() {
+  const { state, dispatch } = useContext(AppContext);
 
   return (
     <>
@@ -13,10 +12,12 @@ export default observer(() => {
         id="example-checkbox"
         name="foo"
         onChange={(event) => {
-          checkboxPresenter.setIsChecked(event.target.checked)
+          dispatch(
+            {type: 'SET_IS_CHECKED', payload: event.target.checked}
+          );
         }}
-        checked={checkboxPresenter.isChecked}
+        checked={state.isChecked}
       />
     </>
   )
-})
+}
