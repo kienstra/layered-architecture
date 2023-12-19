@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { AppContext } from '../App';
+import { checkedAndUnchecked } from '../Store/selector';
 
 export default function CheckboxComponent() {
   const { state, dispatch } = useContext(AppContext);
@@ -18,6 +19,10 @@ export default function CheckboxComponent() {
         }}
         checked={state.isChecked}
       />
+      { checkedAndUnchecked(state)
+        ? <p>This was checked and then unchecked</p>
+        : null
+      }
     </>
   )
 }
